@@ -9,7 +9,7 @@ from pancake import Pancake
 pygame.init()
 pygame.font.init()
 my_font = pygame.font.SysFont('Times New Roman', 15)
-pygame.display.set_caption("Feast for Tea")
+pygame.display.set_caption("Tea a Treat")
 
 # set up variables for the display
 SCREEN_HEIGHT = 370
@@ -18,6 +18,7 @@ size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
 
 p = Pancake(180, 180)
+b = Bunny(90, 50)
 r = 178
 g = 34
 b = 34
@@ -54,11 +55,11 @@ end_screen = False
 # -------- Main Program Loop -----------
 while intro_screen:
     screen.fill((r, g, b))
-    screen.blit(display_message, (100, 125))
-    screen.blit(display_message2, (100, 150))
-    screen.blit(display_message3, (100, 175))
-    screen.blit(display_message4, (100, 200))
-    screen.blit(display_message5, (100, 225))
+    screen.blit(display_message, (70, 120))
+    screen.blit(display_message2, (70, 145))
+    screen.blit(display_message3, (70, 170))
+    screen.blit(display_message4, (70, 195))
+    screen.blit(display_message5, (70, 220))
 
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
