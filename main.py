@@ -4,6 +4,8 @@ import time
 from bunny import Bunny
 from cat import Cat
 from pancake import Pancake
+from bg import Background
+from waffle import Waffle
 
 # set up pygame modules
 pygame.init()
@@ -18,11 +20,12 @@ size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
 
 p = Pancake(180, 180)
-b = Bunny(90, 50)
+w = Waffle(180, 180)
+b = Bunny(90, 180)
 r = 178
 g = 34
 b = 34
-bg = pygame.image.load("bg.jpg")
+background = Background(0 ,0)
 pancakes_eaten = 0
 waffles_eaten = 0
 start_time = round(time.time())
@@ -76,29 +79,37 @@ while intro_screen:
 
 while game_screen:
 
-    keys = pygame.key.get_pressed()  # checking pressed keys
+     keys = pygame.key.get_pressed()  # checking pressed keys
 
-    if keys[pygame.K_d]:
-        p.move_direction("right")
+     if keys[pygame.K_d]:
+         p.move_direction("right")
 
-    if keys[pygame.K_a]:
-        p.move_direction("left")
+     if keys[pygame.K_a]:
+         p.move_direction("left")
 
-    if keys[pygame.K_LEFT]:
-        p.move_direction("left")
+     if keys[pygame.K_LEFT]:
+         p.move_direction("left")
 
-    if keys[pygame.K_RIGHT]:
-        p.move_direction("right")
+     if keys[pygame.K_RIGHT]:
+         p.move_direction("right")
 
-# while run == True:
-#     current_time = round((time.time() - start_time), 2)
-#     display_time_elapsed = my_font.render("Time Elapsed: " + str(current_time), True, (255, 255, 255))
-#     if time == 0:
-#         run = False
-#     pygame.display.update()
+     if b.rect.colliderect(p.rect):
+         eaten = "eaten detected"
+         display_eaten = my_font.render(eaten, True, (255, 255, 255))
+         pancakes = pancakes + 5
+         display_score = my_font.render("Pancakes: " + str(pancakes), True, (255, 255, 255))
+     elif b.rect.colliderect(w.rect):
+         disgust = "disgust detected"
+         display_disgust = my_font.render(disgust, True, (255, 255, 255))
+while run == True:
+     current_time = round((time.time() - start_time), 2)
+     display_time_elapsed = my_font.render("Time Elapsed: " + str(current_time), True, (255, 255, 255))
+     if time == 0:
+         run = False
+     pygame.display.update()
 
 if waffles_eaten + pancakes_eaten <= 4:
-    screen.blit(display_pancakes, (0, 0))
-    screen.blit(display_waffles, (0, 5))
+     screen.blit(display_pancakes, (0, 0))
+     screen.blit(display_waffles, (0, 5))
 
 pygame.quit()
