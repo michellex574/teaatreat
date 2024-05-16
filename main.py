@@ -4,7 +4,7 @@ import time
 from bunny import Bunny
 from cat import Cat
 from pancake import Pancake
-from bg import Background
+from background import Background
 from waffle import Waffle
 
 # set up pygame modules
@@ -19,19 +19,19 @@ SCREEN_WIDTH = 530
 size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
 
-p = Pancake(180, 180)
-w = Waffle(180, 180)
-b = Bunny(90, 180)
-c = Cat(270, 180)
+pancake = Pancake(180, 205)
+waffle = Waffle(180, 205)
+bunny = Bunny(80, 205)
+cat = Cat(280, 220)
 shown = random.randint(1,3)
 if shown == 1:
-    shown = p
-elif shown == 2:
-    shown = w
+    shown = pancake
+elif shown == 2 or shown == 3:
+    shown = waffle
 r = 178
 g = 34
 b = 34
-background = Background(0 ,0)
+background = Background(0, 0)
 pancakes_eaten = 0
 waffles_eaten = 0
 
@@ -94,33 +94,33 @@ while game_screen:
 
      keys = pygame.key.get_pressed()  # checking pressed keys
 
-     if keys[pygame.K_d] and shown == p:
-         p.move_direction("right")
+     if keys[pygame.K_d] and shown == pancake:
+         pancake.move_direction("right")
 
-     if keys[pygame.K_a] and shown == p:
-         p.move_direction("left")
+     if keys[pygame.K_a] and shown == pancake:
+         pancake.move_direction("left")
 
-     if keys[pygame.K_d] and shown == w:
-         p.move_direction("right")
+     if keys[pygame.K_d] and shown == waffle:
+         waffle.move_direction("right")
 
-     if keys[pygame.K_a] and shown == w:
-         p.move_direction("left")
+     if keys[pygame.K_a] and shown == waffle:
+         waffle.move_direction("left")
 
-     if b.rect.colliderect(p.rect):
+     if bunny.rect.colliderect(pancake.rect):
          eaten = "eaten detected"
          display_eaten = my_font.render(eaten, True, (255, 255, 255))
-         pancakes = pancakes + 5
-         display_score = my_font.render("Pancakes: " + str(pancakes), True, (255, 255, 255))
-     elif b.rect.colliderect(w.rect):
+         pancake_eaten = pancakes_eaten + 5
+         display_score = my_font.render(pancakes, True, (255, 255, 255))
+     elif bunny.rect.colliderect(waffle.rect):
          disgust = "disgust detected"
          display_disgust = my_font.render(disgust, True, (255, 255, 255))
 
-     if c.rect.colliderect(w.rect):
+     if cat.rect.colliderect(waffle.rect):
          eaten = "eaten detected"
          display_eaten = my_font.render(eaten, True, (255, 255, 255))
-         waffles = waffles + 5
-         display_score = my_font.render("Waffles: " + str(waffles), True, (255, 255, 255))
-     elif c.rect.colliderect(p.rect):
+         waffles_eaten = waffles_eaten + 5
+         display_score = my_font.render(waffles, True, (255, 255, 255))
+     elif cat.rect.colliderect(pancake.rect):
          disgust = "disgust detected"
          display_disgust = my_font.render(disgust, True, (255, 255, 255))
 
@@ -136,10 +136,10 @@ while game_screen:
         screen.blit(background.image, (0, 0))
         screen.blit(display_pancakes, (1, 0))
         screen.blit(display_waffles, (1, 15))
-        screen.blit(c.image, c.rect)
-        screen.blit(b.image, b.rect)
-        screen.blit(p.image, p.rect)
-        screen.blit(w.image, w.rect)
+        screen.blit(cat.image, cat.rect)
+        screen.blit(bunny.image, bunny.rect)
+        screen.blit(pancake.image, pancake.rect)
+        screen.blit(waffle.image, waffle.rect)
         current_time = time.time()
         seconds_elapsed = round((start_time - current_time) + 10, 2)
         countdown = my_font.render("Time Elapsed: " + str(seconds_elapsed) + "s", True, (255, 255, 255))
