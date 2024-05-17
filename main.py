@@ -52,8 +52,8 @@ display_message2 = my_font.render(message2, True, (0, 0, 0))
 display_message3 = my_font.render(message3, True, (0, 0, 0))
 display_message4 = my_font.render(message4, True, (0, 0, 0))
 display_message5 = my_font.render(message5, True, (0, 0, 0))
-display_pancakes = my_font.render(pancakes, True, (255, 255, 255))
-display_waffles = my_font.render(waffles, True, (255, 255, 255))
+display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
+display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
 display_end_message = my_font.render(end_message, True, (0, 0, 0))
 display_end_message2 = my_font.render(end_message2, True, (0, 0, 0))
 display_end_message3 = my_font.render(end_message3, True, (0, 0, 0))
@@ -66,7 +66,6 @@ run = True
 intro_screen = True
 game_screen = False
 end_screen = False
-
 
 # -------- Main Program Loop -----------
 while intro_screen:
@@ -107,22 +106,23 @@ while game_screen:
          waffle.move_direction("left")
 
      if bunny.rect.colliderect(pancake.rect):
-         eaten = "eaten detected"
-         display_eaten = my_font.render(eaten, True, (255, 255, 255))
-         pancake_eaten = pancakes_eaten + 5
-         display_score = my_font.render(pancakes, True, (255, 255, 255))
-     elif bunny.rect.colliderect(waffle.rect):
-         disgust = "disgust detected"
-         display_disgust = my_font.render(disgust, True, (255, 255, 255))
+         pancakes_eaten += 1
+         pancakes = "pancakes eaten: " + str(pancakes_eaten)
+         display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
+     # elif bunny.rect.colliderect(waffle.rect):
+     #     disgust = "disgust detected"
+     #     display_disgust = my_font.render(disgust, True, (0, 0, 0))
+     #     display_score = my_font.render(pancakes, True, (0, 0, 0))
 
      if cat.rect.colliderect(waffle.rect):
-         eaten = "eaten detected"
-         display_eaten = my_font.render(eaten, True, (255, 255, 255))
-         waffles_eaten = waffles_eaten + 5
-         display_score = my_font.render(waffles, True, (255, 255, 255))
-     elif cat.rect.colliderect(pancake.rect):
-         disgust = "disgust detected"
-         display_disgust = my_font.render(disgust, True, (255, 255, 255))
+         waffles_eaten = waffles_eaten + 1
+         waffles = "waffles eaten: " + str(waffles_eaten)
+         display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
+     # elif cat.rect.colliderect(pancake.rect):
+     #     disgust = "disgust detected"
+     #     display_disgust = my_font.render(disgust, True, (0, 0, 0))
+     #     display_score = my_font.render(waffles, True, (0, 0, 0))
+
 
      for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
@@ -134,15 +134,15 @@ while game_screen:
      if seconds_elapsed >= 0:
         screen.fill((r, g, b))
         screen.blit(background.image, (0, 0))
-        screen.blit(display_pancakes, (1, 0))
-        screen.blit(display_waffles, (1, 15))
+        screen.blit(display_pancake_score, (5, 0))
+        screen.blit(display_waffle_score, (5, 15))
         screen.blit(cat.image, cat.rect)
         screen.blit(bunny.image, bunny.rect)
         screen.blit(pancake.image, pancake.rect)
         screen.blit(waffle.image, waffle.rect)
         current_time = time.time()
-        seconds_elapsed = round((start_time - current_time) + 10, 2)
-        countdown = my_font.render("Time Elapsed: " + str(seconds_elapsed) + "s", True, (255, 255, 255))
+        seconds_elapsed = round((start_time - current_time) + 20, 2)
+        countdown = my_font.render("Time Elapsed: " + str(seconds_elapsed) + "s", True, (0, 0, 0))
         screen.blit(countdown, (375, 0))
 
      else:
