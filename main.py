@@ -99,16 +99,42 @@ while game_screen:
      if keys[pygame.K_a] and shown == pancake:
          pancake.move_direction("left")
 
+     if keys[pygame.K_w] and shown == pancake:
+         pancake.move_direction("up")
+
+     if keys[pygame.K_s] and shown == pancake:
+         pancake.move_direction("down")
+
      if keys[pygame.K_d] and shown == waffle:
          waffle.move_direction("right")
 
      if keys[pygame.K_a] and shown == waffle:
          waffle.move_direction("left")
 
+     if keys[pygame.K_w] and shown == waffle:
+         waffle.move_direction("up")
+
+     if keys[pygame.K_s] and shown == waffle:
+         waffle.move_direction("down")
+
+
+     if bunny.rect.colliderect(pancake.rect):
+         message = "Collision detected"
+         display_message = my_font.render(message, True, (0, 0, 0))
+         new_x = random.randint(15, 375)
+         new_y = random.randint(15, 225)
+         pancake.set_location(new_x, new_y)
+         pancakes_eaten = pancakes_eaten + 1
+
      if bunny.rect.colliderect(pancake.rect):
          pancakes_eaten += 1
          pancakes = "pancakes eaten: " + str(pancakes_eaten)
          display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
+         shown = random.randint(1, 3)
+         if shown == 1:
+             shown = pancake
+         elif shown == 2 or shown == 3:
+             shown = waffle
      # elif bunny.rect.colliderect(waffle.rect):
      #     disgust = "disgust detected"
      #     display_disgust = my_font.render(disgust, True, (0, 0, 0))
@@ -118,6 +144,11 @@ while game_screen:
          waffles_eaten = waffles_eaten + 1
          waffles = "waffles eaten: " + str(waffles_eaten)
          display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
+         shown = random.randint(1, 3)
+         if shown == 1:
+             shown = pancake
+         elif shown == 2 or shown == 3:
+             shown = waffle
      # elif cat.rect.colliderect(pancake.rect):
      #     disgust = "disgust detected"
      #     display_disgust = my_font.render(disgust, True, (0, 0, 0))
@@ -138,8 +169,10 @@ while game_screen:
         screen.blit(display_waffle_score, (5, 15))
         screen.blit(cat.image, cat.rect)
         screen.blit(bunny.image, bunny.rect)
-        screen.blit(pancake.image, pancake.rect)
-        screen.blit(waffle.image, waffle.rect)
+        if shown == pancake:
+          screen.blit(pancake.image, pancake.rect)
+        elif shown == waffle:
+          screen.blit(waffle.image, waffle.rect)
         current_time = time.time()
         seconds_elapsed = round((start_time - current_time) + 20, 2)
         countdown = my_font.render("Time Elapsed: " + str(seconds_elapsed) + "s", True, (0, 0, 0))
@@ -167,15 +200,15 @@ while end_screen:
 
     if waffles_eaten > 20:
         display_end_message = my_font.render(end_message, True, (0, 0, 0))
-        screen.blit(display_end_message, (175, 165))
+        screen.blit(display_end_message, (175, 145))
 
     if waffles_eaten < 5:
         display_end_message2 = my_font.render(end_message2, True, (0, 0, 0))
-        screen.blit(display_end_message2, (175, 165))
+        screen.blit(display_end_message2, (175, 145))
 
     if waffles_eaten > 10 and waffles_eaten < 15:
         display_end_message2 = my_font.render(end_message3, True, (0, 0, 0))
-        screen.blit(display_end_message3, (175, 165))
+        screen.blit(display_end_message3, (175, 145))
 
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
