@@ -6,6 +6,7 @@ from cat import Cat
 from pancake import Pancake
 from background import Background
 from waffle import Waffle
+from paffle import Paffle
 
 # set up pygame modules
 pygame.init()
@@ -21,13 +22,17 @@ screen = pygame.display.set_mode(size)
 
 pancake = Pancake(180, 205)
 waffle = Waffle(180, 205)
+paffle = Paffle(180, 205)
 bunny = Bunny(80, 205)
 cat = Cat(400, 215)
-shown = random.randint(1,3)
+shown = random.randint(1, 4)
 if shown == 1:
     shown = pancake
 elif shown == 2 or shown == 3:
     shown = waffle
+elif shown == 4:
+    shown = paffle
+
 r = 178
 g = 34
 b = 34
@@ -117,6 +122,17 @@ while game_screen:
      if keys[pygame.K_s] and shown == waffle:
          waffle.move_direction("down")
 
+     if keys[pygame.K_d] and shown == paffle:
+         paffle.move_direction("right")
+
+     if keys[pygame.K_a] and shown == paffle:
+         paffle.move_direction("left")
+
+     if keys[pygame.K_w] and shown == paffle:
+         paffle.move_direction("up")
+
+     if keys[pygame.K_s] and shown == paffle:
+         paffle.move_direction("down")
 
      if bunny.rect.colliderect(pancake.rect):
          new_x = random.randint(15, 375)
@@ -131,15 +147,48 @@ while game_screen:
          pancakes_eaten = pancakes_eaten + 1
          pancakes = "pancakes eaten: " + str(pancakes_eaten)
          display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
-         shown = random.randint(1, 3)
+         shown = random.randint(1, 4)
          if shown == 1:
              shown = pancake
          elif shown == 2 or shown == 3:
              shown = waffle
-     # elif bunny.rect.colliderect(waffle.rect):
-     #     disgust = "disgust detected"
-     #     display_disgust = my_font.render(disgust, True, (0, 0, 0))
-     #     display_score = my_font.render(pancakes, True, (0, 0, 0))
+         elif shown == 4:
+             shown = paffle
+         new_x = random.randint(15, 375)
+         if new_x == 80:
+             new_x = False
+             new_x = random.randint(15, 375)
+         new_y = random.randint(15, 225)
+         if new_y == 205:
+             new_y = False
+             new_y = random.randint(15, 225)
+     if bunny.rect.colliderect(paffle.rect):
+         new_x = random.randint(15, 375)
+         if new_x == 80:
+             new_x = False
+             new_x = random.randint(15, 375)
+         new_y = random.randint(15, 225)
+         if new_y == 205:
+             new_y = False
+             new_y = random.randint(15, 225)
+         pancake.set_location(new_x, new_y)
+         pancakes_eaten = pancakes_eaten + 5
+         pancakes = "pancakes eaten: " + str(pancakes_eaten)
+         display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
+         if shown == 1:
+             shown = pancake
+         elif shown == 2 or shown == 3:
+             shown = waffle
+         elif shown == 4:
+             shown = paffle
+         new_x = random.randint(15, 375)
+         if new_x == 80:
+             new_x = False
+             new_x = random.randint(15, 375)
+         new_y = random.randint(15, 225)
+         if new_y == 205:
+             new_y = False
+             new_y = random.randint(15, 225)
 
      if cat.rect.colliderect(waffle.rect):
          message = "Collision detected"
@@ -161,11 +210,21 @@ while game_screen:
              shown = pancake
          elif shown == 2 or shown == 3:
              shown = waffle
-     # elif cat.rect.colliderect(pancake.rect):
-     #     disgust = "disgust detected"
-     #     display_disgust = my_font.render(disgust, True, (0, 0, 0))
-     #     display_score = my_font.render(waffles, True, (0, 0, 0))
-
+         elif shown == 4:
+             shown = paffle
+     if cat.rect.colliderect(paffle.rect):
+         new_x = random.randint(15, 375)
+         if new_x == 80:
+             new_x = False
+             new_x = random.randint(15, 375)
+         new_y = random.randint(15, 225)
+         if new_y == 205:
+             new_y = False
+             new_y = random.randint(15, 225)
+         waffle.set_location(new_x, new_y)
+         waffles_eaten = waffles_eaten + 5
+         waffles = "waffles eaten: " + str(waffles_eaten)
+         display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
 
      for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
