@@ -162,7 +162,7 @@ while game_screen:
          if new_y == 205:
              new_y = False
              new_y = random.randint(15, 225)
-     if bunny.rect.colliderect(paffle.rect):
+     elif bunny.rect.colliderect(paffle.rect):
          new_x = random.randint(15, 375)
          if new_x == 80:
              new_x = False
@@ -171,28 +171,27 @@ while game_screen:
          if new_y == 205:
              new_y = False
              new_y = random.randint(15, 225)
-         pancake.set_location(new_x, new_y)
+         paffle.set_location(new_x, new_y)
          pancakes_eaten = pancakes_eaten + 5
          pancakes = "pancakes eaten: " + str(pancakes_eaten)
          display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
+         new_x = random.randint(15, 375)
+         if new_x == 80:
+             new_x = False
+             new_x = random.randint(15, 375)
+         new_y = random.randint(15, 225)
+         if new_y == 205:
+             new_y = False
+             new_y = random.randint(15, 225)
+         shown = random.randint(1,4)
          if shown == 1:
              shown = pancake
          elif shown == 2 or shown == 3:
              shown = waffle
          elif shown == 4:
              shown = paffle
-         new_x = random.randint(15, 375)
-         if new_x == 80:
-             new_x = False
-             new_x = random.randint(15, 375)
-         new_y = random.randint(15, 225)
-         if new_y == 205:
-             new_y = False
-             new_y = random.randint(15, 225)
 
      if cat.rect.colliderect(waffle.rect):
-         message = "Collision detected"
-         display_message = my_font.render(message, True, (0, 0, 0))
          new_x = random.randint(15, 375)
          if new_x == 280:
              new_x = False
@@ -212,19 +211,26 @@ while game_screen:
              shown = waffle
          elif shown == 4:
              shown = paffle
-     if cat.rect.colliderect(paffle.rect):
+     elif cat.rect.colliderect(paffle.rect):
          new_x = random.randint(15, 375)
-         if new_x == 80:
+         if new_x == 280:
              new_x = False
              new_x = random.randint(15, 375)
          new_y = random.randint(15, 225)
-         if new_y == 205:
+         if new_y == 220:
              new_y = False
              new_y = random.randint(15, 225)
-         waffle.set_location(new_x, new_y)
+         paffle.set_location(new_x, new_y)
          waffles_eaten = waffles_eaten + 5
          waffles = "waffles eaten: " + str(waffles_eaten)
          display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
+         shown = random.randint(1, 3)
+         if shown == 1:
+             shown = pancake
+         elif shown == 2 or shown == 3:
+             shown = waffle
+         elif shown == 4:
+             shown = paffle
 
      for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
@@ -240,6 +246,7 @@ while game_screen:
         screen.blit(display_waffle_score, (5, 15))
         screen.blit(cat.image, cat.rect)
         screen.blit(bunny.image, bunny.rect)
+        screen.blit(paffle.image, paffle.rect)
         if shown == pancake:
           screen.blit(pancake.image, pancake.rect)
         elif shown == waffle:
