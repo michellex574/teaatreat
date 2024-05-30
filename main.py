@@ -145,6 +145,9 @@ while game_screen:
              new_y = random.randint(15, 225)
          pancake.set_location(new_x, new_y)
          pancakes_eaten = pancakes_eaten + 1
+         if pancakes_eaten > 9:
+             scale_size = (bunny.image_size[0] * 1.4, bunny.image_size[1] * 1.5)
+             bunny.image = pygame.transform.scale(bunny.image, scale_size)
          pancakes = "pancakes eaten: " + str(pancakes_eaten)
          display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
          shown = random.randint(1, 4)
@@ -173,6 +176,9 @@ while game_screen:
              new_y = random.randint(15, 225)
          paffle.set_location(new_x, new_y)
          pancakes_eaten = pancakes_eaten + 5
+         if pancakes_eaten > 9:
+             scale_size = (bunny.image_size[0] * 1.4, bunny.image_size[1] * 1.5)
+             bunny.image = pygame.transform.scale(bunny.image, scale_size)
          pancakes = "pancakes eaten: " + str(pancakes_eaten)
          display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
          new_x = random.randint(15, 375)
@@ -202,6 +208,9 @@ while game_screen:
              new_y = random.randint(15, 225)
          waffle.set_location(new_x, new_y)
          waffles_eaten = waffles_eaten + 1
+         if waffles_eaten > 9:
+             scale_size = (cat.image_size[0] * 1.4, cat.image_size[1] * 1.5)
+             cat.image = pygame.transform.scale(cat.image, scale_size)
          waffles = "waffles eaten: " + str(waffles_eaten)
          display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
          shown = random.randint(1, 3)
@@ -222,6 +231,9 @@ while game_screen:
              new_y = random.randint(15, 225)
          paffle.set_location(new_x, new_y)
          waffles_eaten = waffles_eaten + 5
+         if waffles_eaten > 9:
+             scale_size = (cat.image_size[0] * 1.4, cat.image_size[1] * 1.5)
+             cat.image = pygame.transform.scale(cat.image, scale_size)
          waffles = "waffles eaten: " + str(waffles_eaten)
          display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
          shown = random.randint(1, 3)
@@ -266,15 +278,15 @@ while end_screen:
     screen.fill((r, g, b))
     if pancakes_eaten > 20 or waffles_eaten > 20:
         display_end_message = my_font.render(end_message, True, (0, 0, 0))
-        screen.blit(display_end_message, (165, 175))
+        screen.blit(display_end_message, (155, 175))
 
     if pancakes_eaten < 5 or waffles_eaten < 5:
         display_end_message2 = my_font.render(end_message2, True, (0, 0, 0))
-        screen.blit(display_end_message2, (165, 175))
+        screen.blit(display_end_message2, (155, 175))
 
     if pancakes_eaten > 8 and pancakes_eaten < 15:
         display_end_message2 = my_font.render(end_message3, True, (0, 0, 0))
-        screen.blit(display_end_message3, (165, 175))
+        screen.blit(display_end_message3, (155, 175))
 
     if waffles_eaten > 10 and waffles_eaten < 15:
         display_end_message2 = my_font.render(end_message3, True, (0, 0, 0))
