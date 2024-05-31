@@ -11,7 +11,7 @@ from paffle import Paffle
 # set up pygame modules
 pygame.init()
 pygame.font.init()
-my_font = pygame.font.SysFont('Times New Roman', 15)
+my_font = pygame.font.SysFont('Comic Sans', 15)
 pygame.display.set_caption("Tea a Treat")
 
 # set up variables for the display
@@ -47,8 +47,8 @@ message2 = "The pancakes are for the bunny!"
 message3 = "The waffles are for the fox!"
 message4 = "Both the bunny and the fox enjoys the paffle, so it's up to you! "
 message5 = "1 paffle = 5 pancakes or 5 waffles"
-pancakes = "pancakes eaten: " + str(pancakes_eaten)
-waffles = "waffles eaten: " + str(waffles_eaten)
+pancakes = "PANCAKES EATEN: " + str(pancakes_eaten)
+waffles = "WAFFLES EATEN: " + str(waffles_eaten)
 end_message = "Time's up! They sure are fed! "
 end_message2 = "Time's up! Did you starve them?.. "
 end_message3 = "Time's up! They're satisfied now that's for sure! "
@@ -148,7 +148,7 @@ while game_screen:
          if pancakes_eaten > 9:
              scale_size = (bunny.image_size[0] * 1.4, bunny.image_size[1] * 1.5)
              bunny.image = pygame.transform.scale(bunny.image, scale_size)
-         pancakes = "pancakes eaten: " + str(pancakes_eaten)
+         pancakes = "PANCAKES EATEN: " + str(pancakes_eaten)
          display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
          shown = random.randint(1, 4)
          if shown == 1:
@@ -179,7 +179,7 @@ while game_screen:
          if pancakes_eaten > 9:
              scale_size = (bunny.image_size[0] * 1.4, bunny.image_size[1] * 1.5)
              bunny.image = pygame.transform.scale(bunny.image, scale_size)
-         pancakes = "pancakes eaten: " + str(pancakes_eaten)
+         pancakes = "PANCAKES EATEN: " + str(pancakes_eaten)
          display_pancake_score = my_font.render(pancakes, True, (0, 0, 0))
          new_x = random.randint(15, 375)
          if new_x == 80:
@@ -211,7 +211,7 @@ while game_screen:
          if waffles_eaten > 9:
              scale_size = (cat.image_size[0] * 1.4, cat.image_size[1] * 1.5)
              cat.image = pygame.transform.scale(cat.image, scale_size)
-         waffles = "waffles eaten: " + str(waffles_eaten)
+         waffles = "WAFFLES EATEN: " + str(waffles_eaten)
          display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
          shown = random.randint(1, 3)
          if shown == 1:
@@ -234,7 +234,7 @@ while game_screen:
          if waffles_eaten > 9:
              scale_size = (cat.image_size[0] * 1.4, cat.image_size[1] * 1.5)
              cat.image = pygame.transform.scale(cat.image, scale_size)
-         waffles = "waffles eaten: " + str(waffles_eaten)
+         waffles = "WAFFLES EATEN: " + str(waffles_eaten)
          display_waffle_score = my_font.render(waffles, True, (0, 0, 0))
          shown = random.randint(1, 3)
          if shown == 1:
@@ -265,8 +265,8 @@ while game_screen:
           screen.blit(waffle.image, waffle.rect)
         current_time = time.time()
         seconds_elapsed = round((start_time - current_time) + 20, 2)
-        countdown = my_font.render("Time Elapsed: " + str(seconds_elapsed) + "s", True, (0, 0, 0))
-        screen.blit(countdown, (375, 0))
+        countdown = my_font.render("TIME ELAPSED: " + str(seconds_elapsed) + "s", True, (0, 0, 0))
+        screen.blit(countdown, (365, 0))
 
      else:
         game_screen = False
@@ -276,21 +276,17 @@ while game_screen:
 
 while end_screen:
     screen.fill((r, g, b))
-    if pancakes_eaten > 20 or waffles_eaten > 20:
+    if pancakes_eaten + waffles_eaten > 60:
         display_end_message = my_font.render(end_message, True, (0, 0, 0))
-        screen.blit(display_end_message, (155, 175))
+        screen.blit(display_end_message, (140, 175))
 
-    if pancakes_eaten < 5 or waffles_eaten < 5:
+    elif pancakes_eaten + waffles_eaten < 10:
         display_end_message2 = my_font.render(end_message2, True, (0, 0, 0))
-        screen.blit(display_end_message2, (155, 175))
+        screen.blit(display_end_message2, (140, 175))
 
-    if pancakes_eaten > 8 and pancakes_eaten < 15:
+    elif pancakes_eaten + waffles_eaten > 10:
         display_end_message2 = my_font.render(end_message3, True, (0, 0, 0))
-        screen.blit(display_end_message3, (155, 175))
-
-    if waffles_eaten > 10 and waffles_eaten < 15:
-        display_end_message2 = my_font.render(end_message3, True, (0, 0, 0))
-        screen.blit(display_end_message3, (155, 170))
+        screen.blit(display_end_message3, (140, 175))
 
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
