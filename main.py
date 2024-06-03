@@ -3,6 +3,7 @@ import random
 import time
 from bunny import Bunny
 from cat import Cat
+from ditto import Ditto
 from pancake import Pancake
 from background import Background
 from waffle import Waffle
@@ -11,7 +12,7 @@ from paffle import Paffle
 # set up pygame modules
 pygame.init()
 pygame.font.init()
-my_font = pygame.font.SysFont('Comic Sans', 15)
+my_font = pygame.font.SysFont('Times New Roman', 15)
 pygame.display.set_caption("Tea a Treat")
 
 # set up variables for the display
@@ -25,6 +26,7 @@ waffle = Waffle(180, 205)
 paffle = Paffle(180, 205)
 bunny = Bunny(80, 205)
 cat = Cat(400, 215)
+ditto = Ditto(210, 5)
 shown = random.randint(1, 4)
 if shown == 1:
     shown = pancake
@@ -71,6 +73,7 @@ run = True
 intro_screen = True
 game_screen = False
 end_screen = False
+ditto_dragging = False
 
 # -------- Main Program Loop -----------
 while intro_screen:
@@ -92,9 +95,28 @@ while intro_screen:
             intro_screen = False
             game_screen = True
 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                if ditto.collidepoint(event.pos):
+                    ditto_dragging = True
+                    mouse_x, mouse_y = event.pos
+                    offset_x = ditto.x - mouse_x
+                    offset_y = ditto.y - mouse_y
+
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if event.button == 1:
+                ditto_dragging = False
+
+        elif event.type == pygame.MOUSEMOTION:
+            if ditto_dragging:
+                mouse_x, mouse_y = event.pos
+                ditto.x = mouse_x + offset_x
+                ditto.y = mouse_y + offset_y
+
     pygame.display.update()
 
 while game_screen:
+
 
      keys = pygame.key.get_pressed()  # checking pressed keys
 
@@ -256,6 +278,7 @@ while game_screen:
         screen.blit(background.image, (0, 0))
         screen.blit(display_pancake_score, (5, 0))
         screen.blit(display_waffle_score, (5, 15))
+        screen.blit(ditto.image, ditto.rect)
         screen.blit(cat.image, cat.rect)
         screen.blit(bunny.image, bunny.rect)
         screen.blit(paffle.image, paffle.rect)
