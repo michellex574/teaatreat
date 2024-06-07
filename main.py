@@ -95,24 +95,6 @@ while intro_screen:
             intro_screen = False
             game_screen = True
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                if ditto.collidepoint(event.pos):
-                    ditto_dragging = True
-                    mouse_x, mouse_y = event.pos
-                    offset_x = ditto.x - mouse_x
-                    offset_y = ditto.y - mouse_y
-
-        elif event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 1:
-                ditto_dragging = False
-
-        elif event.type == pygame.MOUSEMOTION:
-            if ditto_dragging:
-                mouse_x, mouse_y = event.pos
-                ditto.x = mouse_x + offset_x
-                ditto.y = mouse_y + offset_y
-
     pygame.display.update()
 
 while game_screen:
