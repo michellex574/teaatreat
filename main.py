@@ -1,4 +1,5 @@
 import pygame
+import os
 import random
 import time
 from bunny import Bunny
@@ -27,6 +28,9 @@ paffle = Paffle(180, 205)
 bunny = Bunny(80, 205)
 cat = Cat(400, 215)
 ditto = Ditto(210, 5)
+music = pygame.mixer.music.load('music.ogg')
+pygame.mixer.music.play(-1)
+
 shown = random.randint(1, 4)
 if shown == 1:
     shown = pancake
