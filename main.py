@@ -1,5 +1,4 @@
 import pygame
-import os
 import random
 import time
 from bunny import Bunny
@@ -26,7 +25,7 @@ pancake = Pancake(180, 205)
 waffle = Waffle(180, 205)
 paffle = Paffle(180, 205)
 bunny = Bunny(80, 205)
-cat = Cat(400, 215)
+cat = Cat(400, 205)
 ditto = Ditto(210, 5)
 music = pygame.mixer.music.load('music.ogg')
 pygame.mixer.music.play(-1)
@@ -285,7 +284,7 @@ while game_screen:
 
 while end_screen:
     screen.fill((r, g, b))
-    if pancakes_eaten + waffles_eaten > 60:
+    if pancakes_eaten + waffles_eaten > 30:
         display_end_message = my_font.render(end_message, True, (0, 0, 0))
         screen.blit(display_end_message, (140, 175))
 
@@ -294,8 +293,8 @@ while end_screen:
         screen.blit(display_end_message2, (140, 175))
 
     elif pancakes_eaten + waffles_eaten > 10:
-        display_end_message2 = my_font.render(end_message3, True, (0, 0, 0))
-        screen.blit(display_end_message3, (140, 175))
+        display_end_message3 = my_font.render(end_message3, True, (0, 0, 0))
+        screen.blit(display_end_message3, (135, 175))
 
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
